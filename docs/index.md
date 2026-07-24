@@ -5,6 +5,5 @@ This website hosts the lecture notes, lecture slides, and other written guides a
 You can explore the links on the menu on the left, or search for keywords in the search bar above.
 
 ### Other Web Resources
-- [Ed](https://edstem.org/us/courses/91875)
-- [Canvas](https://canvas.nus.edu.sg/courses/85330)
-- [CS2030S Ticketing System](https://mysoc.nus.edu.sg/app/cs2030s)
+- [Ed](https://edstem.org/us/courses/100653)
+- [Canvas](https://canvas.nus.edu.sg/courses/93698)
