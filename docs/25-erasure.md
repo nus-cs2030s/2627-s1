@@ -196,7 +196,7 @@ Object[] objArray = pairArray;
 objArray[0] = new Pair<Double,Boolean>(3.14, true);
 ```
 
-This is similar to what we have in [Unit 21](21-variance.md), where we showed we could get an `ArrayStoreException` due to Java arrays being covariant.  We would not, however, get an exception when we try to put a pair of double and boolean, into an array meant to store a pair of string and integer!  This type checking is done during runtime, and due to type erasure, the runtime has no information about what is the type arguments to `Pair`.  The runtime sees:
+This is similar to what we have in [Unit 22](22-variance.md), where we showed we could get an `ArrayStoreException` due to Java arrays being covariant.  We would not, however, get an exception when we try to put a pair of double and boolean, into an array meant to store a pair of string and integer!  This type checking is done during runtime, and due to type erasure, the runtime has no information about what is the type arguments to `Pair`.  The runtime sees:
 
 ```Java
 // create a new array of pairs

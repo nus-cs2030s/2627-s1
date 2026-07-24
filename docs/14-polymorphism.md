@@ -196,5 +196,5 @@ As this example has shown, polymorphism allows us _to write succinct code that i
 !!! note "Different Types of Polymorphism"
     The term polymorphism is used in different contexts to mean different things.  In CS2030S, when we refer to the term "polymorphism", we are referring _exclusively_ to, more precisely, _subtype polymorphism_ (also known as inclusion polymorphism). 
 
-    In other literature, you may come across two other types of polymorphism.  Generics ([Unit 23](23-generics.md)) is also called _parametric polymorphism_.  Method overloading ([Unit 13](13-overloading.md)) is sometimes refer to as _ad-hoc polymorphism_.  We don't use these terms in CS2030S.
+    In other literature, you may come across two other types of polymorphism.  Generics ([Unit 24](24-generics.md)) is also called _parametric polymorphism_.  Method overloading ([Unit 13](13-overloading.md)) is sometimes refer to as _ad-hoc polymorphism_.  We don't use these terms in CS2030S.
 

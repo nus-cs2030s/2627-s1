@@ -88,10 +88,10 @@ In CS2030/S, you will not only continue to break your computation into functions
 
 The last point above about why it is important to code in small, reusable functions, follows what is called the _Abstraction Principle_.  The principle states that:
 
-
-> _"Each significant piece of functionality in a program should be implemented in just one place in the source code. Where similar functions are carried out by distinct pieces of code, it is generally beneficial to combine them into one by abstracting out the varying parts."_
->
-> Benjamin C. Pierce, "Types and Programming Languages"
+!!! quote "Quote"
+    "Each significant piece of functionality in a program should be implemented in just one place in the source code. Where similar functions are carried out by distinct pieces of code, it is generally beneficial to combine them into one by abstracting out the varying parts."
+    
+    Benjamin C. Pierce, "Types and Programming Languages"
 
 This principle is something that we will visit over and over again in CS2030/S, applying it to different varying parts of a program.
 In the case of functions, the "varying parts" are the values on which we wish to perform the computation.  We will also apply this principle to

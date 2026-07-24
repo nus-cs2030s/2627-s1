@@ -82,7 +82,7 @@ class Pair {
 }
 ```
 
-At the cost of using a [wrapper class](19-wrapper.md) in place of primitive types, we get a single class that can be used to store any type of value.  
+At the cost of using a [wrapper class](20-wrapper.md) in place of primitive types, we get a single class that can be used to store any type of value.  
 
 You might recall that we used a similar approach for our [`contains` method](14-polymorphism.md) to implement a general _method_ that works for any type of object.  Here, we are using this approach for a general _class_ that encapsulates any type of object.
 
@@ -234,7 +234,7 @@ The code above won't compile since the compiler expects the second argument to a
 
 ## Bounded Type Parameters
 
-Let's now try to apply our newly acquired trick to fix the issue with `findLargest`.  Recall that we have the following `findLargest` method (which we now put into an ad hoc class just for clarity), which [requires us to perform a narrowing type conversion](20-casting.md) to cast from `GetAreable` and possibly lead to a runtime error.
+Let's now try to apply our newly acquired trick to fix the issue with `findLargest`.  Recall that we have the following `findLargest` method (which we now put into an ad hoc class just for clarity), which [requires us to perform a narrowing type conversion](21-casting.md) to cast from `GetAreable` and possibly lead to a runtime error.
 
 ```Java title="findLargest v0.5 with GetAreable"
 class A {

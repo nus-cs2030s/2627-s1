@@ -71,7 +71,7 @@ Shape <: S <: Object
  
 Therefore, `S` could be `Shape` or one of its supertypes: `GetAreable` and `Object`.   We choose the lower bound, so `S` is inferred to be `Shape`.
 
-Type inference can have unexpected consequences.  Let's consider an [older version of `contains` that we wrote](23-generics.md):
+Type inference can have unexpected consequences.  Let's consider an [older version of `contains` that we wrote](24-generics.md):
 
 ```Java title="contains v0.4 (with generics)"
 class A {

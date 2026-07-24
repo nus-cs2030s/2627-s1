@@ -18,7 +18,7 @@
 
     In this unit, we take abstraction one step further. Instead of modeling what something is, we focus on what it can do. This shift allows us to write highly flexible code that works across unrelated class hierarchies—without forcing unnatural inheritance relationships.
 
-To achieve this, we introduce interfaces: a Java abstraction that models behavior rather than identity. Interfaces will allow us to express common capabilities, reason about multiple supertypes, and write code that is both more general and more precise.
+    To achieve this, we introduce interfaces: a Java abstraction that models behavior rather than identity. Interfaces will allow us to express common capabilities, reason about multiple supertypes, and write code that is both more general and more precise.
 
 ## Modeling Behavior
 
