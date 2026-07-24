@@ -1,0 +1,126 @@
+# Unit 5: Information Hiding
+
+!!! abstract "Learning Objectives"
+
+    After this unit, students should be able to:
+
+    - explain how breaking the abstraction barrier creates fragile code;
+    - apply information hiding using `private` and `public` in Java classes;
+    - distinguish client code from implementation code using access modifiers;
+    - construct objects safely using constructors instead of direct field access;
+    - use `this` to disambiguate fields from parameters.
+
+!!! info "Overview"
+
+    In [Unit 3](03-function.md), we learned how abstraction allows us to separate what a component does from how it does it, enabling clients to use a data type without understanding its internal details. In [Unit 4](04-encapsulation.md), we saw how encapsulation groups data and related operations into a class, establishing an abstraction barrier between clients and implementers. However, abstraction and encapsulation alone are not enough: unless the programming language actively prevents clients from accessing internal representation, this barrier can be accidentally or intentionally broken.
+
+    In this unit, we introduce information hiding, the mechanism that enforces the abstraction barrier in practice. We will see how Java uses access modifiers to control visibility, ensuring that clients interact with a class only through its public interface. Once internal representation is hidden, we will also examine how constructors provide the only safe way to create and initialize objects, and how the this keyword helps clarify the distinction between object state and local variables. Together, these ideas show how abstraction is not just a design principle, but a property enforced by the language and the compiler.
+
+## Breaking the Abstraction Barrier
+
+In the ideal case, the code above the abstraction barrier would just call the provided interface to use the composite data type.  There may, however, be cases where a programmer intentionally or accidentally break the abstraction barrier.  
+
+Consider the case of `Circle` in [Unit 4](04-encapsulation.md), where we modify the radius `r` directly with `c.r = 10`.  In doing so, we, as the client to `Circle`, make an explicit assumption of how `Circle` implements a circle.  The implementation details have been leaked outside the abstraction barrier.  Assessing `c.r` turns the client into a partial implementer.  Now, if the implementer wishes to change the representation of the `Circle`, for example, to store the diameter, instead. 
+
+```Java title="Circle v0.1b with Diameter" hl_lines="4 7"
+class Circle {
+  double x;
+  double y;
+  double d; // diameter
+
+  double getArea() {
+    return 3.14 * d * d / 4.0;
+  }
+}
+```
+
+This small implementation change would invalidate the code that the client has written!  The line `c.r = 10;` will cause a compilation error. The client will have to carefully change all the code that makes the assumption (i.e., accessing the field `d`), and modify it accordingly, increasing the chances of introducing a bug.  On the other hand, client codes that uses the `getArea` method can remain unchanged.
+
+## Data Hiding
+
+Many OO languages allow programmers to explicitly specify if a field or a method can be accessed from outside the abstraction barrier.  Java, for instance, supports `private` and `public` access modifiers.  A field or a method that is declared as `private` cannot be accessed from outside the class, and can only be accessed within the class.  On the other hand, as you can guess, a `public` field or method can be accessed, modified, or invoked from outside the class.  
+
+Such a mechanism for protecting the abstraction barrier is called _data hiding_ or _information hiding_.  This protection is enforced by the _compiler_ at compile time.
+
+In our original `Circle` class (v0.1) in [Unit 4](04-encapsulation.md), we did not specify any access modifier &mdash; this amounts to using the _default_ modifier, the meaning of which is not our concern right now[^1]  For a start, we will explicitly indicate `private` or `public` for all our methods and fields.
+
+```Java title="Circle v0.2" hl_lines="2-4"
+class Circle {
+  private double x;
+  private double y;
+  private double r;
+
+  public double getArea() {
+    return 3.14 * r * r;
+  }
+}
+```
+
+[^1]: The other access modifier is `protected`.  Again, we do not want to worry about this modifier for now.
+
+Now the fields `x`, `y`, and `r` are hidden behind the abstraction barrier of the class `Circle`.  Note that these fields are not accessible and modifiable outside of the class `Circle`, but they can be accessed and modified within `Circle` (inside the abstraction barrier), such as in the methods `getArea`.
+
+!!! note "Breaking Python's Abstraction Barrier"
+    Python tries to prevent _accidental_ access to internal representation by having a convention of prefixing the internal variables with `_` (one underscore) or `__` (two underscores).   This method, however, does not prevent a lazy programmer from directly accessing the variables and possibly planting a bug/error that will surface later.
+
+In summary, the two access modifiers are shown below:
+
+| Accessed from | `private` | `public` |
+|--------------|-----------|----------|
+| _Inside the class_ | :material-check: | :material-check: |
+| _Outside the class_ | :material-close: | :material-check: |
+
+## Constructors
+
+With data hiding, we completely isolate the internal representation of a class using an abstraction barrier.  But, with no way for the client of the class to modify the fields directly, how can the client initialize the fields in a class?  
+
+Since fields are hidden, it is often necessary for a class to provide methods to initialize these internal fields, allowing clients to create valid objects.
+
+A method that initializes an object is called a _constructor_.
+
+A constructor method is a <u>special method</u> within the class.  It cannot be called directly but is invoked automatically when an object is instantiated.   In Java, a constructor method _has the same name as the class_ and _has no return type_.  A constructor can take in arguments just like other functions.  Let's add a constructor to our `Circle` class:
+
+```Java title="Circle v0.3" hl_lines="6-10"
+class Circle {
+  private double x;
+  private double y;
+  private double r;
+
+  public Circle(double x, double y, double r) {
+    this.x = x;
+    this.y = y;
+    this.r = r;
+  }
+
+  public double getArea() {
+    return 3.14 * this.r * this.r;
+  }
+}
+```
+
+Now, to create a `Circle` object, we need to pass in three arguments:
+```Java
+Circle c = new Circle(0.0, 0.5, 10.0);
+```
+
+!!! note "Constructor in Python and JavaScript"
+    In Python, the constructor is the `__init__` method.   In JavaScript, the constructor is simply called `constructor`.
+
+### Default Constructor
+
+Our original `Circle` v0.1 does not have any constructor.  If there is no constructor given, then a default constructor is added automatically at compile time.  The default constructor has no parameter and has no code written for the body.  In the case of `Circle` v0.1, the default constructor would be the following:
+
+```Java
+Circle() {
+}
+```
+
+Notice the condition "_if no constructor is given at all_".  If at least one constructor is provided, Java will not provide the default constructor!
+
+## The `this` Keyword
+
+The code above also introduces the `this` keyword.  `this` is a reference variable that refers back to the calling object itself.    It can be used to distinguish between two variables of the same name.  In the example above, `this.x = x` means we want to set the field `x` of this object to the parameter `x` passed into the constructor.
+
+Now that you have been introduced to `this`, we have also updated the method body of `getArea` and replaced `r` with `this.r`.  Although there is nothing syntactically wrong with using just `r`, sticking to the idiom of referring to members through the `this` reference makes the code easier to understand for readers.  The `this` reference makes it explicit that the expression is referring to a field in the class, rather than a local variable or a parameter.
+
+As a rule of thumb, use `this` whenever you refer to a field.

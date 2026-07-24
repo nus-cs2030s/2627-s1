@@ -1,0 +1,236 @@
+# Unit 35: Loggable
+
+!!! abstract "Learning Objectives"
+
+    After this unit, students should be able to:
+
+    - explain why naïve function composition breaks down when additional context (e.g., logging) is introduced;
+    - construct a simple abstraction that combines a value with auxiliary information;
+    - distinguish between `map` and `flatMap` in terms of what kinds of transformations they support;
+    - use `flatMap` to compose computations that produce contextualized results;
+    - generalize a concrete abstraction into a type-parameterized one using Java generics.
+
+!!! info "Overview"
+
+    In earlier units, we learned how to compose pure functions and use higher-order operations such as map to build more complex behavior. This worked well as long as our functions only transformed values.
+
+    In practice, however, computations often need to carry additional context, such as log messages. Once this extra information is introduced, simple function composition breaks down and map is no longer sufficient.
+
+    In this unit, we start from a concrete logging example[^1] and gradually build an abstraction that restores composability. Through this process, we uncover why `flatMap` is needed, where it comes from, and how it allows us to compose context-carrying computations in a disciplined way.
+
+## Function Composition with Logging
+
+In this unit, we are going to build a general abstraction step-by-step, reach a limitation, and see how `flatMap` resolves this issue.  Through this exercise, you will gain an appreciation of `flatMap`.
+
+Let's start with some methods that operate on `int` values.  Let's use some trivial functions so that we don't get distracted by its details.
+
+```Java
+int incr(int x) {
+  return x + 1;
+}
+
+int abs(int x) {
+  return x > 0 ? x : -x;
+}
+```
+
+These methods are pure functions without side effects, they each takes one argument and produces a result. 
+
+Just like mathematical functions, we can compose them together in arbitrary order to form more complex operations.
+
+```Java
+incr(abs(-4));
+abs(incr(incr(5)));
+```
+
+In object-oriented style, we can compose a function by chaining the methods.  But first, we have to create a class to encapsulate the value.
+
+```java title="Customer Integer"
+class Int {
+  private final int val;
+
+  public Int(int val) {
+    this.val = val;
+  }
+
+  public Int abs() {
+    if (this.val < 0) {
+      return new Int(-this.val);
+    } else {
+      return new Int(this.val);
+    }
+  }
+
+  public Int incr() {
+    return new Int(this.val + 1);
+  }
+}
+```
+
+Then, the composition can be done as follows.
+
+```java
+new Int(-4).abs().incr();       // incr(abs(-4));
+new Int(5).incr().incr().abs(); // abs(incr(incr(5)));
+```
+
+We use both styles interchangeably in the discussion below.
+
+## `Loggable` with `Pair`
+
+Suppose now we want to return not only an `int` but some additional information related to the operation on `int`.  For instance, let's suppose we want to return a string describing the operation (for logging).  Java does not support returning multiple values, so let's return a `Pair`.
+
+```Java
+Pair<Integer, String> incrWithLog(int x) {
+  return Pair.of(incr(x), "; incr " + x);
+}
+
+Pair<Integer, String> absWithLog(int x) {
+  return Pair.of(abs(x), "; abs " + x);
+}
+```
+
+Now, we can no longer compose the logging methods as cleanly as before.  This is because the return value of `absWithLog` is a `Pair<Integer, String>` but `incrWithLog` accepts an `int` as its parameter.
+
+```Java
+incrWithLog(absWithLog(-4));  // error
+```
+
+We will need to change our methods to take in `Pair<Integer, String>` as the argument.
+
+```Java
+Pair<Integer, String> incrWithLog(Pair<Integer, String> p) {
+  return Pair.of(incr(p.first), p.second + "; incr " + p.first);
+}
+
+Pair<Integer, String> absWithLog(Pair<Integer, String> p) {
+  return Pair.of(abs(p.first), p.second + "; abs " + p.first);
+}
+```
+
+We can now compose the methods.
+```Java
+incrWithLog(absWithLog(Pair.of(-4, ""))); 
+```
+
+## `Loggable` Class
+
+Let's do it in a more OO way, by writing a class to replace `Pair`.
+
+```Java title="Loggable v0.1"
+class Loggable {
+  private final int value;
+  private final String log;
+
+  private Loggable(int value, String log) {
+    this.value = value;
+    this.log = log;
+  }
+
+  public static Loggable of(int value) {
+    return new Loggable(value, "");
+  }
+
+  Loggable incrWithLog() {
+    return new Loggable(incr(this.value), this.log + "; incr " + this.value);
+  }
+
+  Loggable absWithLog() {
+    return new Loggable(abs(this.value), this.log + "; abs " + this.value);
+  }
+
+  public String toString() {
+    return "value: " + this.value + ", log: " + this.log;
+  }
+}
+```
+
+We can use the class above as follows:
+```Java
+Loggable x = Loggable.of(4);
+Loggable z = x.incrWithLog().absWithLog();
+```
+
+Note that we can now chain the methods together to compose them.  Additionally, the log messages get passed from one call to another and get "composed" as well.
+
+## Making `Loggable` general
+
+There are many possible operations on `int`, and we do not want to add a method `fooWithLog` for every function `foo`.  One way to make `Loggable` general is to abstract out the `int` operation and provide that as a lambda expression to `Loggable`.  This is what the `map` method does. 
+
+```Java
+Loggable map(Transformer<Integer,Integer> transformer) {
+  return new Loggable(transformer.transform(this.value), this.log); 
+}
+```
+
+We can use it like this:
+```Java
+Loggable.of(4).map(x -> incr(x)).map(x -> abs(x))
+```
+
+We can still chain the methods together to compose them.
+
+However, `map` only allows us to apply the function to the value.  What should we do to the log messages?  Since the given lambda returns an int, it is not sufficient to tell us what message we want to add to the log.
+
+To fix this, we will need to pass in a lambda expression that takes in an integer but returns us a pair of an integer and a string.  In other words, it returns us a `Loggable`.  We call our new method `flatMap`.
+
+```Java
+Loggable flatMap(Transformer<Integer,Loggable> transformer) {
+  Loggable l = transformer.transform(this.value);
+  return new Loggable(l.value, l.log + this.log); 
+}
+```
+
+Note that the log from the new computation is prepended to the existing log to preserve execution order.
+
+By making `flatMap` take in a lambda that returns a pair of an integer and a string, `Loggable` can rely on these lambda expressions to tell it how to update the log messages.  Now, if we have methods like this:
+
+```Java
+Loggable incrWithLog(int x) {
+  return new Loggable(incr(x), "; incr " + x);
+}
+
+Loggable absWithLog(int x) {
+  return new Loggable(abs(x), "; abs " + x);
+}
+```
+
+We can write:
+```Java
+Loggable.of(4)
+        .flatMap(x -> incrWithLog(x))
+        .flatMap(x -> absWithLog(x))
+```
+
+to now compose the methods `incr` and `abs` together, along with the log messages!
+
+## Making `Loggable` More General
+
+We started with an operation on `int`, but our `Loggable` class is fairly general and should be able to add a log message to any operation of any type.  We can make it so by making `Loggable` a generic class.
+
+```Java title="Loggable v0.2 (Generic with flatMap)"
+class Loggable<T> {
+  private final T value;
+  private final String log;
+
+  private Loggable(T value, String log) {
+    this.value = value;
+    this.log = log;
+  }
+
+  public static <T> Loggable<T> of(T value) {
+	return new Loggable<>(value, "");
+  }
+
+  public <R> Loggable<R> flatMap(Transformer<? super T, ? extends Loggable<? extends R>> transformer) {
+    Loggable<? extends R> l = transformer.transform(this.value);
+    return new Loggable<>(l.value, l.log + this.log);
+  }
+
+  public String toString() {
+    return "value: " + this.value + ", log: " + this.log;
+  }
+}
+```
+
+[^1]: This note is inspired by [The Best Introduction to Monad](https://blog.jcoglan.com/2011/03/05/translation-from-haskell-to-javascript-of-selected-portions-of-the-best-introduction-to-monads-ive-ever-read/#). Another excellent note on category theory is by [Bartosz Milewski](https://bartoszmilewski.com/2014/10/28/category-theory-for-programmers-the-preface/)
