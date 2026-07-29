@@ -1,4 +1,4 @@
-# Unit 32: Lazy Evaluation
+# Unit 33: Lazy Evaluation
 
 !!! abstract "Learning Objectives"
 

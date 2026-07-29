@@ -1,4 +1,4 @@
-# Unit 30: Side Effect-Free Programming
+# Unit 31: Side Effect-Free Programming
 
 !!! abstract "Learning Objectives"
 

@@ -1,4 +1,4 @@
-# Unit 24: Type Erasure
+# Unit 25: Type Erasure
 
 !!! abstract "Learning Objectives"
 

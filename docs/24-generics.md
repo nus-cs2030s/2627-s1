@@ -1,4 +1,4 @@
-# Unit 23: Generics
+# Unit 24: Generics
 
 !!! abstract "Learning Objectives"
 

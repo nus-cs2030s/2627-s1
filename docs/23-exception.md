@@ -1,4 +1,4 @@
-# Unit 22: Exceptions
+# Unit 23: Exceptions
 
 !!! abstract "Learning Objectives"
 

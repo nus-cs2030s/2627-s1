@@ -1,4 +1,4 @@
-# Unit 27: Type Inference
+# Unit 28: Type Inference
 
 !!! abstract "Learning Objectives"
 
