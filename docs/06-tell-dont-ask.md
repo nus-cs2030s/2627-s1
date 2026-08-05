@@ -222,10 +222,11 @@ sequenceDiagram
 
 This better approach involves writing a few more lines of code to implement the method, but it keeps the encapsulation intact, leading to less _coupling_ between the client and the class.  The client does not need to know the internal representation of the `Circle` class, and the `Circle` class can change its internal structure (e.g., the type of the fields) without affecting the client.
 
-In general, _a task that is performed only on the fields of a class should be implemented in the class itself._  As a rule of thumb, if client code
-calls two or more accessors on the same object and combines those values to compute a result, then that computation likely belongs inside the object.
+In general, _a task that is performed only on the fields of a class should be implemented in the class itself._  As a rule of thumb, if client code calls two or more accessors on the same object and combines those values to compute a result, then that computation likely belongs inside the object.
 
-While there are situations where we cannot avoid using an accessor or a mutator in a class, for beginner OO programmers like yourselves, relying on accessors and mutators as defaults indiscrminately can hinder the development of good OO design instinct.  Using accessors and mutators heavily often turns objects into passive data holders, shifting logic into client code. This style resembles procedural programming more than object-oriented design.  As such, you are encouraged to avoid defining accessors and modifiers to private fields, and instead focus on designing methods within the class that tell an object what task to perform, and allowing clients to simply request those tasks.
+While there are situations where we cannot avoid using an accessor or a mutator in a class, for beginner OO programmers like yourselves, relying on accessors and mutators as defaults indiscrminately can hinder the development of good OO design instinct.  Using accessors and mutators heavily often turns objects into passive data holders, shifting logic into client code. This style resembles procedural programming more than object-oriented design.  As such, you are encouraged to avoid defining accessors and mutators to private fields, and instead focus on designing methods within the class that tell an object what task to perform, and allowing clients to simply request those tasks.
+
+Although defining both accessors and mutators on private fields do not violate information hiding, they violate "Tell, Don't Ask" principle even if they are not used by the client.  As implementer, we should design our classes in such a way as to avoid painful rewrites by the client should our implementation changes.
 
 
 ## Further Reading
