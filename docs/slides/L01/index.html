@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>L01</title>
+    <link href="$$HOME/img/icon/icon.svg" rel="icon" type="image/png"/>
+    <link rel="stylesheet" href="$$HOME/css/global.css">
+    <link rel="stylesheet" href="$$HOME/css/basic.css">
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/katex.min.css">
+    
+    <link href="$$HOME/css/remark/basic-w.css" rel="stylesheet">
+    <link href="$$HOME/css/remark/sections-w.css" rel="stylesheet">
+    <link href="$$HOME/css/remark/layout.css" rel="stylesheet">
+    <link href="$$HOME/css/remark/imaging.css" rel="stylesheet">
+    <link href="$$HOME/css/remark/fonts.css" rel="stylesheet">
+    <link href="$$HOME/css/remark/lists.css" rel="stylesheet">
+    <link href="$$HOME/css/remark/cards.css" rel="stylesheet">
+    <link href="$$HOME/css/remark/tabler.css" rel="stylesheet">
+    <link href="$$HOME/css/remark/coding.css" rel="stylesheet">
+    <link href="$$HOME/css/remark/footnote.css" rel="stylesheet">
+
+    <link href="$$HOME/css/remark/animation.css" rel="stylesheet">
+    <link href="$$HOME/css/remark/transition.css" rel="stylesheet">
+    
+    <link href="$$HOME/css/remark/hljs-idle.css" rel="stylesheet">
+    <link href="$$HOME/css/remark/print-w.css" rel="stylesheet">
+    <link href="$$HOME/css/remark/sign.css" rel="stylesheet">
+    <link href="$$HOME/css/remark/math.css" rel="stylesheet">
+    
+    <link href="../css/cs2030s.css" rel="stylesheet">
+    <link href="$$HOME/css/remark.css" rel="stylesheet">
+  </head>
+  <body class="noscroll">
+    <div id="body">
+      <div id="header"><span id="crumbs">$$CRUMBS</span><span id="rheader"><a href="https://thisisadi.yoga">thisisadi.yoga</a></span></div>
+      <div id="remark-container"></div>
+      <div id="footer"></div>
+    </div>
+    <script>0</script>
+    <script src="$$HOME/js/remark/remark.js" type="text/javascript"></script>
+    <script src="$$HOME/js/remark/area.js" type="text/javascript"></script>
+    <script src="$$HOME/js/remark/href.js" type="text/javascript"></script>
+    <script src="$$HOME/js/plugins/qanvas/init.js" type="text/javascript"></script>
+    <script src="$$HOME/js/plugins/coder/init.js" type="text/javascript"></script>
+    <script src="$$HOME/js/plugins/itools/init.js" type="text/javascript"></script>
+    <script src="$$HOME/js/plugins/quizzes/init.js" type="text/javascript"></script>
+    <script src="$$HOME/js/plugins/toc/init.js" type="text/javascript"></script>
+    <script src="$$HOME/js/plugins/tooltip/init.js" type="text/javascript"></script>
+    <script src="$$HOME/js/plugins/flatsection/init.js" type="text/javascript"></script>
+    <script src="$$HOME/js/plugins/anims/init.js" type="text/javascript"></script>
+    <script src="$$HOME/js/plugins/tabular/init.js" type="text/javascript"></script>
+    <script src="$$HOME/js/plugins/notable/init.js" type="text/javascript"></script>
+    <script src="$$HOME/js/plugins/slider/init.js" type="text/javascript"></script>
+    <script src="$$HOME/js/plugins/todo/init.js" type="text/javascript"></script>
+    <script src="$$HOME/js/plugins/break/init.js" type="text/javascript"></script>
+    <script src="$$HOME/js/plugins/iframe/init.js" type="text/javascript"></script>
+    <script src="$$HOME/js/plugins/cursor/init.js" type="text/javascript"></script>
+    
+    <script type="text/JavaScript" src="$$HOME/js/remark/coding.js"></script>
+    <script type="text/JavaScript" src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/js/all.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/katex.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/contrib/auto-render.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.min.js"></script>
+    
+    <script src="../js/cs2030s.js" type="text/javascript"></script>
+    
+    <script type="text/javascript">
+      var renderMath = function() {
+        renderMathInElement(document.body, {delimiters: [
+            {left: "$$", right: "$$", display: true },
+            {left: "$" , right: "$" , display: false}
+        ]});
+      };
+
+      let _src = 'L01';
+      
+      window.$itools.poll('dcsaysp');
+      
+      var slideshow = remark.create({
+        ratio: '8:9',
+        container: document.getElementById('remark-container'),
+        countIncrementalSlides: false,
+        highlightStyle: 'idle',
+        sourceUrl: _src + '.md',
+        navigation: {
+          scroll: true,
+          touch: false,
+          click: false,
+        },
+        tooltip: {
+          position: 'right',
+          size: 'large'
+        },
+        sublink: {
+          pre: '',
+          kind: 'num'
+        },
+        qanvas: {
+          layout: 'horizontal',
+          pensize: 1,
+          tag: 'CS2' + _src,
+          offt: 30,
+        },
+        quizzes: {
+          poll: 'lc',
+          alt: true,
+          date: $$CS2030_WEEK01,
+          hide: true,
+        },
+        todo: {
+          name: _src
+        },
+        cursor: {
+          circle: false,
+          timeball: -1
+        }
+      }, function() {
+        renderMath();
+        initCoding();
+        initAhref();
+        initTools();
+      });
+    </script>
+
+    <script type="text/javascript">
+      document.getElementById('footer').innerHTML = `(2018 - ${new Date().getFullYear()}) Adi Prabawa`;
+    </script>
+  </body>
+</html>
