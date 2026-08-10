@@ -22,7 +22,7 @@ We begin with an eagerly evaluated list not to propose it as a reusable abstract
 
 Let's consider first how we can represent an eagerly evaluated, finite list, recursively.  
 
-A simple way is to treat the list as a recursive structure, containing a `head` and a `tail`, with the `tail` being a list itself.  We have a special terminating list called `Sentinel` that we use to terminate the EagerList.
+A simple way is to treat the list as a recursive structure, containing a `head` and a `tail`, with the `tail` being a list itself.  We have a special terminating list called `Sentinel` that we use to terminate the `EagerList`.
 
 ```Java title="An Eagerly Evaluated Finite List"
 class EagerList<T> {
@@ -79,7 +79,7 @@ class EagerList<T> {
 }
 ```
 
-Let's provide two factory methods called `generate` and `iterate`, that will populate our EagerList for us.
+Let's provide two factory methods called `generate` and `iterate`, that will populate our `EagerList` for us.
 
 ```Java
 public static <T> EagerList<T> generate(T t, int size) {
@@ -351,7 +351,7 @@ We have the following objects set up.
     ![odds](slides/figures/cs2030s-lec09/cs2030s-lec09.005.png#only-dark)
     ![odds](slides/figures/cs2030s-lec09-light/cs2030s-lec09-light.005.png#only-light)
 
-Let's now trace through what happens when we call `altEvens.head()`.  This method leads to the call `this.head.produce()`, where `this` refers to `altEvens`.  The call to `produce` invoked `mapper.transform(this.head.produce())` of the producer labeled 1 in the figure below.  This leads to `this.head.produce()` of this producer being called.  Within this producer, `this` refers to `odds`, and so `this.head.produce()` invoked `mapper.transform(this.head.produce())` of the producer labelled 2.   Now, `this` refers to `evens`, and `this.head.produce()` causes the producer `() -> `init` (labeled 3) to produce 0.
+Let's now trace through what happens when we call `altEvens.head()`.  This method leads to the call `this.head.produce()`, where `this` refers to `altEvens`.  The call to `produce` invoked `mapper.transform(this.head.produce())` of the producer labeled 1 in the figure below.  This leads to `this.head.produce()` of this producer being called.  Within this producer, `this` refers to `odds`, and so `this.head.produce()` invoked `mapper.transform(this.head.produce())` of the producer labelled 2.   Now, `this` refers to `evens`, and `this.head.produce()` causes the producer `() -> init` (labeled 3) to produce 0.
 
 === "Old Figure"
 
