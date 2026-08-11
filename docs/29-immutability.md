@@ -8,7 +8,9 @@
     - design and implement immutable classes in Java, including the correct use of `final`, factory methods, and copy-on-write semantics;
     - distinguish between `final` and true immutability, and identify common pitfalls where `final` fields do not guarantee immutability;
     - reason about safe sharing of objects and internal representations, including when and why structural sharing is correct and efficient;
-    - recognize the role of immutability in program reasoning and concurrency, and explain why immutable objects are inherently thread-safe.
+    - recognize the role of immutability in program reasoning and concurrency, and explain why immutable objects are inherently thread-safe;
+    - design classes with controlled extension using `sealed` keyword;
+    - implement a simpler immutable classes with record class.
 
 !!! info "Overview"
 
@@ -216,7 +218,7 @@ Such a design pattern is only safe when the class is immutable.  Consider the mu
 
 Immutable instances can also share their internals freely.  Consider an immutable implementation of our `Seq<T>`, called `ImmutableSeq<T>`.  Let's start with a simple version first.
 
-```Java title="ImmutableSeq&lt;T&gt; v0.1"
+```Java title="ImmutableSeq<T> v0.1"
 final class ImmutableSeq<T> {
   private final T[] array;
 
@@ -277,7 +279,7 @@ c.get(1) // returns 50
 
 A typical way to implement `subarray` is to allocate a new `T[]` and copy the elements over.  This operation can be expensive if our `ImmutableSeq` has millions of elements.  But, since our class is immutable and the internal field `array` is guaranteed not to mutate, we can safely let `b` and `c` refer to the same `array` from `a`, and only store the starting and ending index.
 
-```Java title="ImmutableSeq&lt;T&gt; v0.2 (with sharing)" hl_lines="2 3 17-21 23-28 30-32"
+```Java title="ImmutableSeq<T> v0.2 (with sharing)" hl_lines="2 3 17-21 23-28 30-32"
 class ImmutableSeq<T> {
   private final int start;
   private final int end;
@@ -374,7 +376,7 @@ final class Circle {
 
 That does not mean that the `final` keyword is not important.  It helps accidental re-assignment and in some cases, that is sufficient especially if the fields are of primitive type.  Once we have created one immutable class, we can then create other larger immutable classes by only using immutable classes as fields.
 
-# Performance Trade-offs of Immutability
+## Performance Trade-offs of Immutability
 
 While immutability offers significant benefits in correctness, reasoning, and safety, it is not without cost. Because immutable objects cannot be modified in place, updates typically require creating new objects, which may increase memory allocation and garbage collection overhead.
 
@@ -383,3 +385,156 @@ In performance-critical code, such as tight loops, low-level data processing, or
 In such cases, a carefully designed mutable implementation may be more efficient.  Hence, immutability should be viewed as a design trade-off, not a universal rule.  When correctness, simplicity, and safe sharing are priorities, immutability is often the better choice. When performance is critical and mutation can be tightly controlled within a well-defined abstraction barrier, mutability may be justified.
 
 In practice, many systems combine both approaches: using mutable objects internally for efficiency, while exposing immutable interfaces to clients.
+
+## Semi-Controlled Extension
+
+Java 17 introduced the concept of sealed class ([JEP 409](https://openjdk.java.net/jeps/409)) that allows for a more controlled extension of classes.  Recap that the keyword `final` prevents any extension.  In some cases, we want some extension to allowable sub-classes.  This can be specified by `sealed` keyword.
+
+Consider the immutable circle from above.  We are not able to extend this into an immutable `ColoredCircle` even if both `Circle` and `ColoredCircle` are implemented by the same implementer.
+
+```Java title="Incorrect ColoredCircle" hl_lines="1-3 11-13"
+class ColoredCircle extends Circle {
+    :
+}
+```
+
+If we want to allow `Circle` to be extended but only by `ColoredCircle`, then we can specify `Circle` as a sealed class and `ColoredCircle` is an allowed subclass.
+
+```Java title="Immutable Circle" hl_lines="1-2"
+sealed class Circle
+    permits ColoredCircle {
+  private final Point c;
+  private final double r;
+
+  public Circle (Point c, double r) {
+    this.c = c;
+    this.r = r;
+  }
+    :
+
+  public Circle moveTo(double x, double y) {
+    return new Circle(c.moveTo(x, y), r);
+  }
+}
+```
+
+In the example above, the `sealed` keyword prohibits extension except by allowed subclasses.  The allowed subclasses is specified by the `permits` keyword[^2].  In this case, we allow only `ColoredCircle` to extend `Circle`.  Now, the following code _almost_ compiles.
+
+[^2]: The feature is so new that the `permits` keyword has not been colored by the syntax highlighter.
+
+```Java title="Almost Correct ColoredCircle" hl_lines="1"
+class ColoredCircle extends Circle {
+    :
+}
+```
+
+Since the intention is to close the loophole, we need to ensure the the `ColoredCircle` class has no further unregulated subclasses.  In other words, we need to ensure that `ColoredCircle` is declared with `final` keyword.
+
+```Java title="Correct ColoredCircle" hl_lines="1"
+final class ColoredCircle extends Circle {
+    :
+}
+```
+
+However, this may be too strong.  In some cases, we still want to have yet another controlled extension.  As such, `ColoredCircle` is allowed to be another sealed class and its subclasses will be checked accordingly.
+
+Unfortunately, for backward compatibility some sealed class should be allowed to have non-sealed subclass.  However, this should still be done in a controlled manner.  The proper way to do this is to add `non-sealed` keyword to any subclasses that are not guaranteed to be final or sealed.  We are not allowed to omit the keywords.
+
+In other words, the permitted subclasses must satisfy the following constraints.
+- They must directly extend the sealed class.
+- They must have exactly one of the following modifiers:
+  - `final`: cannot extend further.
+  - `sealed`: further controlled extension.
+  - `non-sealed`: further uncontrolled extension.  This is a bad practice and we prohibit its usage.
+
+With respect to compilation, the Java compiler wants to check that all classes are correct at compile-time.  This means that partial compilation (i.e., compilation of sealed class without the known subclassses) are not allowed for sealed class.  This adds another requirement that all permitted subclasses must be accessible by the sealed class at compile-time.
+
+## Shortcut Record
+
+Another feature added in Java 17 is a special kind of immutable class called Records ([JEP 395](https://openjdk.org/jeps/395)) with common structure.  Notice how we often create an immutable class with the following structure.
+
+```Java title="Common Class Structure"
+final class Klass {
+  private final TYPE_1 FIELD_1;
+  private final TYPE_2 FIELD_2;
+    : // other fields
+
+  public Klass(TYPE_1 FIELD_1, TYPE_2 FIELD_2, .., TYPE_N FIELD_N) {
+    this.FIELD_1 = FIELD_1;
+    this.FIELD_2 = FIELD_2;
+      : // other fields
+    this.FIELD_N = FIELD_N;
+  }
+
+  public TYPE_1 FIELD_1() {
+    return this.FIELD_1;
+  }
+
+  public TYPE_2 FIELD_2() {
+    return this.FIELD_2;
+  }
+
+    : // other fields
+
+  public TYPE_N FIELD_N() {
+    return this.FIELD_N;
+  }
+
+  // Implementation of equals() [and hashCode()]
+  // two objects are equal if they are of the same type
+  //   and contain equal field values.
+  public boolean equals(Object obj) { .. }
+
+  // Implementation of toString() that returns a String
+  // representation of all the class's fields.
+  public String toString() { .. }
+}
+```
+
+A record class simplifies the creation of such name by removing often repeated constructs.  Using record class, we can declare the class above as follows.
+
+```Java title="Record Class"
+record Klass(TYPE_1 FIELD_1, TYPE_2 FIELD_2, .., TYPE_N FIELD_N) {
+    :
+}
+```
+
+The following members are automatically generated by the record class.
+- The fields as mentioned in the header. The fields are automatically `private` and `final` with the same name and type.
+- The `public` accessor method with the same name and type of the fields.
+- The canonical constructor with the same signature as the header. The constructor assigns the input parameter to the correct field based on the position of the field in the header.
+- The implementation of `equals` and `hashCode` methods. two record classes are equal if they are of the same type[^3] and contain equal component values. 
+- The implementation of `toString` method that includes the string representation of all the record class's components, with their names.
+
+[^3]: This is an explicit choice by Java.  The equality requires exactly the same type and not subtype.
+
+We can then simplify the immutable circle with immutable point as follows.
+
+```Java title="Record Class"
+record Point(double x, double y) { .. }
+record Circle(Point c, double r) { .. }
+```
+
+If we want to have the `getArea` and `moveTo` method, we can add them into the class definition.
+
+```Java title="Record Class"
+record Point(double x, double y) {
+  public Point moveTo(double x, double y) {
+    return new Point(x, y);
+  }
+}
+
+record Circle(Point c, double r) {
+  private static final double PI = 3.14159;
+
+  public double getArea() {
+    return Circle.PI * this.r * this.r;
+  }
+
+  public Circle moveTo(double x, double y) {
+    return new Circle(c.moveTo(x, y), this.r);
+  }
+}
+```
+
+We will often use record class to quickly create some immutable classes.

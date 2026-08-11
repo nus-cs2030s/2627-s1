@@ -4,13 +4,13 @@ This article is adapted from the notes of the [Unix@Home Workshop](https://nus-u
 
 !!! abstract "Learning Objectives"
 
-    Students should
+    Students should:
 
-    - be able to navigate comfortably in a Unix file system using shell commands `cd`, `pwd`, and `ls`.
-    - be able to use `.`, `..`, `~` or `/` to form a relative or absolute path name to a file.
-    - be able to organize files in a Unix file system using shell commands `mkdir`, `rmdir`, `mv`, `rm`, and `cp`.
-    - be able to view the content of the file using `cat`, `more` or `less`.
-    - be able to manage the permission of a file using `chmod`.
+    - be able to navigate comfortably in a Unix file system using shell commands `cd`, `pwd`, and `ls`;
+    - be able to use `.`, `..`, `~` or `/` to form a relative or absolute path name to a file;
+    - be able to organize files in a Unix file system using shell commands `mkdir`, `rmdir`, `mv`, `rm`, and `cp`;
+    - be able to view the content of the file using `cat`, `more` or `less`;
+    - be able to manage the permission of a file using `chmod`;
     - be able to perform standard input/output redirection with `<` and `>`.
 
 
@@ -98,7 +98,7 @@ The `ls` list the content in the current working directory.
 !!! note "Rule of Silence"
     Unix follows the economical _rule of silence_: programs should not print unnecessary output, to allow other programs and users to easily parse the output from one program.  So, if `ls` has nothing to list, it will list nothing (as opposed to, say, printing "This is an empty directory.")
 
-In Unix, a file or directory with a name that starts with `.` is hidden from `ls`.  Common hidden files are `.vimrc`, the configuration file for `vim`, and `.ssh`, the directory to store your SSH keys and configuration.  To view all the files, including hidden files, run `ls` with the `-a` flag (`a` stands for all).
+In Unix, a file or directory with a name that starts with `.` is hidden from `ls`.  Common hidden files are `.vimrc`, the configuration file for Vim, and `.ssh`, the directory to store your SSH keys and configuration.  To view all the files, including hidden files, run `ls` with the `-a` flag (`a` stands for all).
 
 ### `mkdir`: MaKe a subDIRectory
 

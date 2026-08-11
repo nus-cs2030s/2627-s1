@@ -121,7 +121,7 @@ Type inference does not guarantee that the inferred type matches the programmer'
 
 The example above performs type inference on the parameters of the generic methods.  Type inference can involve the type of the expression as well.  This is known as _target typing_.  Take the following upgraded version of `findLargest`:
 
-```Java title="findLargest v0.6 (with Seq&lt;T&gt;)"
+```Java title="findLargest v0.6 (with Seq<T>)"
 public static <T extends GetAreable> T findLargest(Seq<? extends T> seq) {
   double maxArea = 0;
   T maxObj = null;

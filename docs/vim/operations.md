@@ -12,7 +12,7 @@ A source code editor is more than a text editor.  A source code editor is design
 
     Robert C. Martin, Clean Code: A Handbook of Agile Software Craftsmanship
 
-As a programmer, we spend a significant amount of time reading source code.  This behavior explains why Vim starts in normal mode for reading and optimizes many shortcuts for navigating source code.  
+As a programmer, we spend a significant amount of time reading source code.  This behavior explains why Vim starts in `NORMAL` mode for reading and optimizes many shortcuts for navigating source code.  
 
 ### Navigation Within a File
 
@@ -83,7 +83,7 @@ When reading code, we often need to look for a specific variable, method, or typ
 
 ### Searching for a String in the Current File
 
-To search for a string, type, in NORMAL mode, ++"/"++ followed by the string you are looking for.  The cursor will jump to the first occurrence of the string after the current cursor.
+To search for a string, type, in `NORMAL` mode, ++"/"++ followed by the string you are looking for.  The cursor will jump to the first occurrence of the string after the current cursor.
 
 You can use ++n++ or ++shift+n++ to jump to the next or previous occurrence of the string respectively.
 
@@ -117,7 +117,7 @@ would open up two files for line-by-line comparison. This is most useful if you 
 
 ## Moving Things Around
 
-Often we need to move statements/blocks/methods/classes around, either to fix bugs or to tidy up our code.  We can do that in Vim NORMAL or VISUAL mode.  This often involves two steps: (i) cutting/deleting what you want to move at the source, and (ii) pasting it to the destination.
+Often we need to move statements/blocks/methods/classes around, either to fix bugs or to tidy up our code.  We can do that in Vim `NORMAL` or `VISUAL` mode.  This often involves two steps: (i) cutting/deleting what you want to move at the source, and (ii) pasting it to the destination.
 
 ### Swapping lines
 
@@ -134,7 +134,7 @@ You can prefix the command with a number $k$ to delete $k$ lines.
 
 ### Reordering Multiple Lines
 
-If you want to cut more lines than you can/willing to count, VISUAL mode is a great way to select the lines to cut.  Place the cursor at the beginning of the line you want to cut.  Press ++shift+v++ to enter VISUAL-LINE mode.  Now, use any of the movement commands to move and select the lines you want to cut (remember, if possible you should avoid using arrow keys or ++j++ or ++k++ to move line-by-line).   Press ++d++ to delete.
+If you want to cut more lines than you can/willing to count, `VISUAL` mode is a great way to select the lines to cut.  Place the cursor at the beginning of the line you want to cut.  Press ++shift+v++ to enter `VISUAL-LINE` mode.  Now, use any of the movement commands to move and select the lines you want to cut (remember, if possible you should avoid using arrow keys or ++j++ or ++k++ to move line-by-line).   Press ++d++ to delete.
 
 Now navigate to where you want to paste and press ++p++.
 
@@ -151,17 +151,17 @@ If you need to copy-paste your code, you should first pause and think about whet
 If there is a valid reason to copy-paste, then you can use ++y++ (stands for yank) for copying text to the clipboard for pasting elsewhere.  ++y++ behaves similarly to ++y++:
 
 - ++y++ ++y++ would copy the current line
-- ++y++ in VISUAL mode would copy the selected lines.
+- ++y++ in `VISUAL` mode would copy the selected lines.
 
 ## Commenting Multiple Lines Of Code
 
-You can edit multiple lines in VISUAL BLOCK mode.  This is useful for commenting and uncommenting multiple lines of code.
+You can edit multiple lines in `VISUAL BLOCK` mode.  This is useful for commenting and uncommenting multiple lines of code.
 
-First, move the cursor at the beginning of a line.  Go into VISUAL BLOCK mode with ++control+v++ or ++control+q++[^1], then select the lines that you want to comment.
+First, move the cursor at the beginning of a line.  Go into `VISUAL BLOCK` mode with ++control+v++ or ++control+q++[^1], then select the lines that you want to comment.
 
 [^1]: If this does not work, it means that your terminal or OS is intercepting the shortcut keys for other purposes.  For instance, ++control+v++ might be interpreted as "paste" in Windows.  You need to remap the hotkeys either in Vim or your app/OS.
 
-Type ++shift+i++ to insert in VISUAL BLOCK mode, type `//` and then ++esc++ to go back to NORMAL mode.  The text `// ` would be inserted in front of each line selected.
+Type ++shift+i++ to insert in `VISUAL BLOCK` mode, type `//` and then ++esc++ to go back to `NORMAL` mode.  The text `// ` would be inserted in front of each line selected.
 
 To uncomment, select `// ` on each line that you wish to uncomment, and ++x++ to delete them.
 
@@ -177,7 +177,7 @@ double perimeter = circle.getArea();
 
 and we realize that we should be calling `getPerimeter` instead.  Instead of using ++back++ or ++del++ to delete the characters one by one, we can use ++c++ ++w++ to change the word `getArea` into `getPerimeter`.
 
-To do so, (i) place the cursor at the beginning of `getArea`.  Remember to avoid using arrow keys or ++h++ or ++l++ to move letter-by-letter.  You can use ++w++ or ++b++ for faster word-by-word navigation.   (ii) type ++c++ ++w++ to remove the word `getArea` and enter INSERT mode.  Now type `getPerimeter` to replace the method name and ++esc++ to return back to NORMAL mode.
+To do so, (i) place the cursor at the beginning of `getArea`.  Remember to avoid using arrow keys or ++h++ or ++l++ to move letter-by-letter.  You can use ++w++ or ++b++ for faster word-by-word navigation.   (ii) type ++c++ ++w++ to remove the word `getArea` and enter `INSERT` mode.  Now type `getPerimeter` to replace the method name and ++esc++ to return back to `NORMAL` mode.
 
 ### Changing multiple names on the same line
 
@@ -220,7 +220,7 @@ If there are only a few lines and you can count the size of the scope within whi
 
 Suppose your cursor is far away and you have the line number turned on.  Let say the method above appears at Lines 125 to 131.  You can issue the command `:125,131s/time/joinTime`.
 
-Alternatively, you can use VISUAL-LINE mode.  Place the cursor at the beginning of the method, and press SHIFT-V.  This enters the VISUAL-LINE mode.  Now, navigate to select the scope within which you want to search and replace (`5j` or `}` works in this case), and press `:`.  You will see that the command prompt is pre-filled with `:'<,'>` to signify the selected range.  Continue typing `s/time/joinTime` and ENTER.
+Alternatively, you can use `VISUAL-LINE` mode.  Place the cursor at the beginning of the method, and press SHIFT-V.  This enters the `VISUAL-LINE` mode.  Now, navigate to select the scope within which you want to search and replace (`5j` or `}` works in this case), and press `:`.  You will see that the command prompt is pre-filled with `:'<,'>` to signify the selected range.  Continue typing `s/time/joinTime` and ENTER.
 
 
 ### Changing all occurrences in a file
@@ -237,7 +237,7 @@ Here are two useful tricks that can save you from typing long names.
 
 ### Auto-completion
 
-You can type ++control+p++ or ++control+n++ in NORMAL mode to auto-complete a word.  So you only need to type the long name the first time.  Subsequently, type the prefix and auto-complete.
+You can type ++control+p++ or ++control+n++ in `NORMAL` mode to auto-complete a word.  So you only need to type the long name the first time.  Subsequently, type the prefix and auto-complete.
 
 ### Abbreviation
 

@@ -35,7 +35,7 @@ ArrayList<Object> objList = pairList;  // error
 Using `ArrayList` instead of arrays only _gets around_ the problem of mixing arrays and generics, as a user.  `ArrayList` is implemented with an array internally after all.  As computing students, especially computer science students, it is important to know how to implement your own data structures instead of using ones provided by Java or other libraries.  
 
 Let's try to build one and to minimize confusion let's call it `Seq<T>`:
-```Java title="Seq&lt;T&gt; v0.1 with getArray"
+```Java title="Seq<T> v0.1 with getArray"
 class Seq<T> {
   private T[] array;
 
@@ -105,7 +105,7 @@ The last line would generate a `ClassCastException`, exactly a scenario that the
 
 It is now up to us humans to change our code so that the code is safe.  Suppose we remove the `getArray` method from the `Seq` class,
 
-```Java title="Seq&lt;T&gt; v0.2 without getArray"
+```Java title="Seq<T> v0.2 without getArray"
 class Seq<T> {
   private T[] array;
 
@@ -134,7 +134,7 @@ array = (T[]) new Object[size];
 
 is safe, we can thank the compiler for its warning and assure the compiler that everything is going to be fine.  We can do so with the `@SuppressWarnings("unchecked")` annotation.
 
-```Java title="Seq&lt;T&gt; v0.3 with @SuppressWarnings" hl_lines="5-10"
+```Java title="Seq<T> v0.3 with @SuppressWarnings" hl_lines="5-10"
 class Seq<T> {
   private T[] array;
 

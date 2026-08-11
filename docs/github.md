@@ -5,7 +5,7 @@
 1. You should already have your SoC Unix account, cluster access, and SoC VPN set up, and be able to `ssh` into one of the PE hosts.  If you are not able to do this, please look at the guide on [programming environments](environments.md).
 2. You should feel comfortable running basic UNIX commands.  If you have not gone through the UNIX guide and got your hands dirty, please [look at the guide and play with the various basic Unix commands](unix/essentials.md).
 3. You should already have a GitHub account and can log into [GitHub.com](https://www.github.com).
-4. {++You have set up vim according to [the set up instruction](vim/setup.md)++}
+4. {++You have set up Vim according to [the set up instruction](vim/setup.md)++}
 
 ## Purpose
 
@@ -74,57 +74,3 @@ Your personal access token will be created.  Copy-paste this to somewhere safe a
 
 Students who are actively using GitHub for other work and prefer to have finer control over the token permissions may choose to create fine-grain personal access token instead, and configure its permission to your personal preference.   
 
-## 3. Accept and Retrieve a Test Skeleton from GitHub
-
-### 3.1 Accept the Test Assignment
-
-We have created an empty lab for you to test if you can correctly retrieve future lab files from GitHub.  Complete the following steps:
-
-- Click here [https://classroom.github.com/a/mdTUrnes](https://classroom.github.com/a/mdTUrnes) to accept the assignment.  You should see the following page:
-
-![accept](figures/accept-assignment-demo.png){: style="width:500px"}
-
-- Click the accept button.  Wait a bit and then refresh until you see a "You're ready to go" message.
-
-{++If you see an error message saying "Repository Access Issue", check your email for an invitation message from github-classroom.  Click the link in the email to accept the invitation.  After accepting the invitation, go back to the link above and refresh the page again.  You should see a "You're ready to go" message.++}
-
-### 3.2 Configure the PE Host to Store Your Credentials
-
-Now, on your PE host, run
-```Bash
-git config --global credential.helper store
-```
-
-This step ensures that your GitHub credentials (username and personal access token) will be stored securely on the PE host so that you don't have to enter them every time you interact with GitHub.
-
-### 3.3 Retrieve the Test Skeleton
-
-Now, run
-```Shell
-/opt/course/cs2030s/get setup-test
-```
-
-### 3.4 Authentication
-You will then be asked for your username and password.
-
-For the username, enter your **GitHub username**.  For the password, paste your **token** from Step 2 above.  Note that there will be nothing shown on the screen when you type your token.  Just paste it and press Enter.
-
-### 3.5 Results
-If everything works well, you should see:
-
-```
-Cloning into 'setup-test-<username>'...
-Username for 'https://github.com': <username>
-Password for 'https://<username>@github.com': <token>
-remote: Enumerating objects: 9, done.
-remote: Counting objects: 100% (9/9), done.
-remote: Compressing objects: 100% (5/5), done.
-remote: Total 9 (delta 1), reused 6 (delta 0), pack-reused 0 (from 0)
-Receiving objects: 100% (9/9), done.
-Resolving deltas: 100% (1/1), done.
-```
-Change your working directory into `setup-test-<username>` and look at the directory content.  It should contain a file `README.md`. 
-
-If you have followed the steps above correctly, any subsequent cloning of github repository does not require username and password to be inserted anymore.  Only Steps 3.1 and 3.3 need to be repeated for each programming exercise (but with different links and different exercise ID).  
-
-You can test by accepting ex0 and cloning it once it is ready.

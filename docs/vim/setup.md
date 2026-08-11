@@ -1,10 +1,10 @@
-# Setting Up `vim` on PE Hosts
+# Setting Up Vim on PE Hosts
 
-## `vim` Configuration
+## Vim Configuration
 
 Like many other Unix programs, you can configure your preferences by creating an `rc` (run commands) file in your home directory.  These `rc` files will be read by the corresponding programs and executed line-by-line as if the text is entered into the program through a keyboard.  You can view an `rc` file as a script that will be executed automatically whenever a program starts.
 
-For `vim`, the `rc` file is called `.vimrc`.  The dot (_i.e._, `.`) in the front of the file name carries a special meaning in Unix.  It means that this file is hidden &mdash; you won't see it when you `ls`.  Hiding the run command files prevent your home directory from being cluttered.  To tell `ls` to show the hidden files, use the `-a` flag
+For Vim, the `rc` file is called `.vimrc`.  The dot (_i.e._, `.`) in the front of the file name carries a special meaning in Unix.  It means that this file is hidden &mdash; you won't see it when you `ls`.  Hiding the run command files prevent your home directory from being cluttered.  To tell `ls` to show the hidden files, use the `-a` flag
 
 ```Bash
 $ ls -a
@@ -18,7 +18,7 @@ To copy this file to your home directory on the PE nodes,
 $ cp /opt/course/cs2030s/.vimrc ~
 ```
 
-You can ask `vim` to automatically back up the files that you edit.  This has been a lifesaver for me on multiple occasions.
+You can ask Vim to automatically back up the files that you edit.  This has been a lifesaver for me on multiple occasions.
 
 The default `.vimrc` contains the following two lines:
 
@@ -27,7 +27,7 @@ set backup
 set backupdir=~/.backup
 ```
 
-This causes `vim` to save the previous version of every file you edited in a backup directory at location `~/.backup`.  You need to create this directory, however, by
+This causes Vim to save the previous version of every file you edited in a backup directory at location `~/.backup`.  You need to create this directory, however, by
 
 ```Bash
 $ mkdir -p ~/.backup
@@ -43,11 +43,11 @@ To recover the file from the backup folder, you can copy the file using
 $ cp ~/.backup/<filename> <destination>/<filename>
 ```
 
-## `vim` Extensions
+## Vim Extensions
 
-CS2030S provides a minimal set of `vim` extensions by default for your programming exercises and practical exams.  See the article on [`vim` extensions](plugins.md) for details.  
+CS2030S provides a minimal set of Vim extensions by default for your programming exercises and practical exams.  See the article on [Vim extensions](plugins.md) for details.  
 
-Additional `vim` extensions are installed under `~/.vim`.  To install these "official" CS2030S `vim` extensions, you can copy the `.vim` from cs2030s's home directory to your home directory.  On the PE host, run:
+Additional Vim extensions are installed under `~/.vim`.  To install these "official" CS2030S Vim extensions, you can copy the `.vim` from cs2030s's home directory to your home directory.  On the PE host, run:
 
 ```Bash
 mkdir -p ~/.vim

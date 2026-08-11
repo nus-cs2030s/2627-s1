@@ -116,7 +116,7 @@ The pre-submission check runs the following to properly validate your code befor
 
 If you want to run the checker on your own without submission, run `/opt/course/cs2030s/check exX` (where X is the exercise number).  
 
-    After this, you can simply run `get exX`, `submit exX`, or `check exX`.  To setup these aliases automatically, you can put the three lines above in your `~/.bash_profile` (it will take effect the next time you log in).  
+After this, you can simply run `get exX`, `submit exX`, or `check exX`.  To setup these aliases automatically, you can put the three lines above in your `~/.bash_profile` (it will take effect the next time you log in).  
 
 You should fix any compilation errors, test failures, style errors, or linter warnings before submission.
 
@@ -133,10 +133,10 @@ A file named `feedback.md` that contains auto-graded output will be placed into 
 
 We will assign an achievement badge, which can be one of the following:
 
-  * **Excellent** Compiles without warning or style errors. Pass all test cases.
-  * **Good** Compiles with one or more warnings or style errors. Pass all test cases.
-  * **Need Improvement** Fail one or more test cases (including internal test cases)
-  * **N/A** Late submission; Submitted skeleton only; No submission; Submitted non-compilable code.
+  * **Excellent:** Compiles without warning or style errors. Pass all test cases.
+  * **Good:** Compiles with one or more warnings or style errors. Pass all test cases.
+  * **Need Improvement:** Fail one or more test cases (including internal test cases).
+  * **N/A:** Late submission; Submitted skeleton only; No submission; Submitted non-compilable code.
 
 These achievement badges help us keep track of the students' progress and give students a sense of their learning.  They do not contribute to the final grade.
 

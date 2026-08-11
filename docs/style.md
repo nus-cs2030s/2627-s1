@@ -179,7 +179,7 @@ Many major companies enforce coding styles, and some have published them.  For C
     !!! success "Good Example"
         ```Java
         if (x == 0) {
-            x++;
+          x++;
         }
         ```
 
@@ -190,13 +190,13 @@ Many major companies enforce coding styles, and some have published them.  For C
         ```Java
         if (x == 0) // Allman style (do not use)
         {
-            x++;
+          x++;
         }
         ```
         ```Java
         if (x == 0) // Pico style (do not use)
         {
-            x++; }
+          x++; }
         ```
 
 ## Lines

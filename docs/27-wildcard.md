@@ -22,7 +22,7 @@
 
 Now that we have our `Seq<T>` class, let's modify our generic `contains` method and replace the type of the argument `T[]` with `Seq<T>`.
 
-```Java title="contains v0.5 (with Seq&lt;T&gt;)"
+```Java title="contains v0.5 (with Seq<T>)"
 class A {
   public static <T> boolean contains(Seq<T> seq, T obj) {
     for (int i = 0; i < seq.getLength(); i++) {
@@ -110,7 +110,7 @@ A.<Shape, Circle>contains(circleSeq, shape);
 
 Let's consider another example.  Let's add two methods `copyFrom` and `copyTo`, to `Seq<T>` so that we can copy to and from one sequence to another.
 
-```Java title="Seq&lt;T&gt; v0.4 (with copy)" hl_lines="21-32"
+```Java title="Seq<T> v0.4 (with copy)" hl_lines="21-32"
 class Seq<T> {
   private T[] array;
 
@@ -279,7 +279,7 @@ circleSeq.copyTo(shapeSeq);
 ```
 
 Our new `Seq<T>` is now
-```Java title="Seq&lt;T&gt; v0.5 (with flexible copy using wildcards)" hl_lines="21 28"
+```Java title="Seq<T> v0.5 (with flexible copy using wildcards)" hl_lines="21 28"
 class Seq<T> {
   private T[] array;
 
@@ -411,7 +411,7 @@ Intuitively, we can think of `Seq<?>`, `Seq<Object>`, and `Seq` as follows:
 
 Now, let's simplify our `contains` methods with the help of wildcards.  Recall that to add flexibility into the method parameter and allow us to search for a shape in a sequence of circles, we have modified our method into the following:
 
-```Java title="contains v0.6 (with Seq&lt;T&gt;)" hl_lines="2"
+```Java title="contains v0.6 (with Seq<T>)" hl_lines="2"
 class A { 
   public static <S,T extends S> boolean contains(Seq<T> seq, S obj) {
     for (int i = 0; i < seq.getLength(); i++) {

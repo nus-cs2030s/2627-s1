@@ -1,18 +1,18 @@
-# Quick `vim` Lessons
+# Quick Vim Lessons
 
 !!! abstract "Learning Objectives"
 
-    Students should
+    Students should:
 
-    - have a basic familiarity with `vim`.
+    - have a basic familiarity with Vim.
 
-Here is a quick walkthrough to get a taste of `vim`.
+Here is a quick walkthrough to get a taste of Vim.
 
 ## Lesson 1: Preparation
 
 ### Step 1: Download
 
-Download the following file for practice using `vim` in this session.
+Download the following file for practice using Vim in this session.
 
 ```Bash
 $ cp /opt/course/cs2030s/jfk.txt .
@@ -26,7 +26,7 @@ $ ls
 
 ### Step 2: Open
 
-Now let's start your first `vim` session.  Open `vim` and load the downloaded `jfk.txt` using the following command
+Now let's start your first Vim session.  Open Vim and load the downloaded `jfk.txt` using the following command
 
 ```bash
 $ vim jfk.txt
@@ -65,7 +65,7 @@ This should move the cursor to the beginning of the word.  You can use ++n++ and
 
 When you are comfortable moving around, you can type ++shift+z+z++ to exit.
 
-Congratulations, you have just completed your first session in `vim`!
+Congratulations, you have just completed your first session in Vim!
 
 ## Lesson 3: Manipulating Text
 
@@ -82,7 +82,7 @@ Deletion is closer to _cut_.  The deleted characters are stored in a _clipboard_
 - Press ++0++ ++d++ ++3++ ++w++ to move the cursor to the beginning of the line and delete three words.
 - Press ++u++ to undo.  This is another lifesaver that you should remember.
 
-In `vim`, repeating the same command twice usually means applying it to the whole line.  Pairing a command with ++shift++ (_or the capital letter version_) usually means applying the action until the end of the line.  
+In Vim, repeating the same command twice usually means applying it to the whole line.  Pairing a command with ++shift++ (_or the capital letter version_) usually means applying the action until the end of the line.  
 
 - Press ++d++ ++d++ to delete the current line.
 - Press ++shift+d++ to delete from the current cursor until the end of the line.
@@ -127,7 +127,7 @@ Change `libertyi. liberty.` to `libtery.` by positioning the cursor on the secon
 
 ### Step 4: Visual Mode
 
-In addition to the `INSERT` and `NORMAL` modes, `vim` has a third mode, the `VISUAL` mode.  You can enter the `VISUAL` mode by hitting ++v++.  Once in visual mode, you can move your cursor to select the text and perform some actions on it (_e.g.,_ ++d++ or ++x++ to delete, ++y++ to yank).
+In addition to the `INSERT` and `NORMAL` modes, Vim has a third mode, the `VISUAL` mode.  You can enter the `VISUAL` mode by hitting ++v++.  Once in visual mode, you can move your cursor to select the text and perform some actions on it (_e.g.,_ ++d++ or ++x++ to delete, ++y++ to yank).
 
 Hitting ++shift+v++ will allow you to select line-by-line.
 
@@ -158,7 +158,7 @@ But, let's try the following:
 :'<,'>!fmt
 ```
 
-`!fmt` tells `vim` to invoke the shell and run `fmt`.  `fmt` is another simple small Unix utility that takes in a text (from standard input) and spews out formatted text in the standard output.  You will see that the width of the text has changed to the default of 65.
+`!fmt` tells Vim to invoke the shell and run `fmt`.  `fmt` is another simple small Unix utility that takes in a text (from standard input) and spews out formatted text in the standard output.  You will see that the width of the text has changed to the default of 65.
 
 You can try something that we have seen before.  Select the text again, and hit
 
@@ -172,7 +172,7 @@ The selected text will be replaced with the output from `wc`.
 
 You have seen examples of `:` commands for writing to a file or piping selected text to an external command.
 
-The `:` command also enables many actions that you can do in `vim`.  Here are a few essential yet simple commands.
+The `:` command also enables many actions that you can do in Vim.  Here are a few essential yet simple commands.
 
 - To jump to a line, hit ++colon++ followed by the line number.
 - To open another file, hit ++colon++ and then type in `e <filename>`
@@ -237,14 +237,14 @@ Now try it with ++shift++ and see the difference in behavior.
 
 ## Learning More
 
-You can run `vimtutor` to learn more about `vim`.  Check out [the tips that we have collected for CS2030S](operations.md), or watch the various tutorials online.  Here are some interesting ones are:
+You can run `vimtutor` to learn more about Vim.  Check out [the tips that we have collected for CS2030S](operations.md), or watch the various tutorials online.  Here are some interesting ones are:
 
 - [Vim Genius](http://vimgenius.com/): A game that goes together with `vimtutor`
 - [Learn vim Progressively](http://yannesposito.com/Scratch/en/blog/Learn-Vim-Progressively/).
 - [Vim: Precision Editing at the Speed of Thought](https://vimeo.com/53144573): A talk by Drew Neil
-- [Vim Adventure](https://www.vim-adventures.com): An adventure game for learning `vim`
-- [Vim Casts](http://vimcasts.org/episodes/archive/): Videos and articles for teaching `vim`
+- [Vim Adventure](https://www.vim-adventures.com): An adventure game for learning Vim
+- [Vim Casts](http://vimcasts.org/episodes/archive/): Videos and articles for teaching Vim
 - [Vim Video Tutorials](http://derekwyatt.org/vim/tutorials/) by Derek Wyatt
 - [Vim Awesome](https://vimawesome.com/): Directory of plugins.
 
-You can search the Web for "best vim tutorials" to find many other resources to get you started with the editor.  You can run `vimtutor` to learn more about `vim`.
+You can search the Web for "best vim tutorials" to find many other resources to get you started with the editor.  You can run `vimtutor` to learn more about Vim.

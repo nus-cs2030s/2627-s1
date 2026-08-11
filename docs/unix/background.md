@@ -4,10 +4,10 @@ This article is a replication of the notes from the [Unix@Home Workshop](https:/
 
 !!! abstract "Learning Objectives"
 
-    Students should
+    Students should:
 
-    - understand the basic terms: CLI, terminal, shell, command prompt.
-    - appreciate why CLI is more efficient.
+    - understand the basic terms: CLI, terminal, shell, command prompt;
+    - appreciate why CLI is more efficient;
     - aware of the commonly used terminal control sequences.
 
 ## What is Command-Line Interfaces?
@@ -18,7 +18,7 @@ In contrast to graphical user interfaces where users use a mouse to click/drag o
 
 CLI evolves from teletypes machines where users would interact with the computer through a typewriter-like machine (see [Figure 2.2.](#figure2_2) of this article for an example).  Users would type a command on the keyboard, and the typewriter would print out, line-by-line, the output on a piece of paper.  This is the era before monitors and mice.  Again, driven by constraints and necessity, CLI interfaces are designed to be simple and economical.  _The commands are short and fast to type; the responses are succinct._
 
-<br><div align="center" id="figure2_1">
+<br><div align="center" id="figure2_1" markdown>
 <a title="Bubba73 (Jud McCranie) / CC BY-SA (https://creativecommons.org/licenses/by-sa/3.0)" href="https://commons.wikimedia.org/wiki/File:ASR_33.jpg"><img width="256" alt="ASR 33" src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/ASR_33.jpg/1280px-ASR_33.jpg?_=20230523052306"></a>
 <br>Figure 2.1.: A teletype device (Model 33 ASR) to interact with a computer.
 </div><br>
@@ -38,7 +38,7 @@ Finally, since these commands are just text, we can put together a sequence of c
 
 With the advances in Cathode-ray tube (CRT), the teletype machine is replaced with _computer terminals_ in the late 1970s.  Instead of printing the output on paper, the output from CLI is now printed on a monitor supporting 24x80 characters on screen in black and white (or green).
 
-<br><div align=center id="figure2_2">
+<br><div align=center id="figure2_2" markdown>
 <a title="Jason Scott / CC BY (https://creativecommons.org/licenses/by/2.0)" href="https://commons.wikimedia.org/wiki/File:DEC_VT100_terminal.jpg"><img width="512" alt="DEC VT100 terminal" src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/DEC_VT100_terminal.jpg/1920px-DEC_VT100_terminal.jpg?_=20131106192408"></a>
 <br>Figure 2.2.: The VT100 Computer Terminal.
 </div><br>
@@ -64,7 +64,7 @@ Other popular shells are [`fish`](https://fishshell.com/) and [Oh-my-zsh](https:
 A shell has a _command prompt_. It typically looks something like this, but will be different depending on the default configuration on your machine:
 
 ```
-ooiwt@pe111:~$
+ooiwt@xcnd0:~$
 ```
 
 The prompt is where you type in a command for the shell to interpret and execute.

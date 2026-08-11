@@ -113,16 +113,16 @@ You only have one option, which is to repeat the above twice.
 Let's say that we copy the following method from a class `LeaveEvent.java` to `JoinEvent.java`:
 
 ```Java
-  void updateTime(int now) {
-      if (this.time > 1200) {
-          this.time = now;
-      } else {
-          this.time = 1200;
-      }
+void updateTime(int now) {
+  if (this.time > 1200) {
+    this.time = now;
+  } else {
+    this.time = 1200;
   }
+}
 ```
 
-and we realize that, in `JoinEvent` the corresponding field is called `joinTime` instead of just `time`.  Now we need to rename all occurrences of `time`` within this block to become `joinTime`.  
+and we realize that, in `JoinEvent` the corresponding field is called `joinTime` instead of just `time`.  Now we need to rename all occurrences of `time` within this block to become `joinTime`.  
 
 To do this, type ++ctrl+++++e++ and issue the command `replace time joinTime`.  This will replace all occurances of `time` with `joinTime`.  By default, it will prompt the users to confirm each replacement. 
 

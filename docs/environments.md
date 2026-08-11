@@ -1,11 +1,11 @@
 # The CS2030S Programming Environment
 
 ![architecture](figures/pe-nodes-architecture/pe-nodes-architecture.001.png)
-<div align="center">Figure 1: The CS2030S Programming Environment.  TL;DR: All work should be done on the PE nodes.  You can access the nodes via `ssh` through lab PCs or your personal devices.  If you need to access them outside SoC, you need to go through SoC VPN.</div>
+<div align="center" markdown>Figure 1: The CS2030S Programming Environment.  TL;DR: All work should be done on the PE nodes.  You can access the nodes via `ssh` through lab PCs or your personal devices.  If you need to access them outside SoC, you need to go through SoC VPN.</div>
 
 ## Java version
 
-Java is a language that continues to evolve.  A new version is released every six months.  For CS2030S, we will _only_ use Java 21.  Specifically, we use `javac 21.0.9` on Ubuntu 20.04.6.
+Java is a language that continues to evolve.  A new version is released every six months.  For CS2030S, we will _only_ use Java 25.  Specifically, we use `javac 25.0.3` on Ubuntu 24.04.4 LTS.
 
 ## PE Hosts
 
@@ -15,7 +15,7 @@ We cannot choose which of the servers to use.  The host `pelogin` acts as a load
 
 ## Accessing the PE Hosts
 
-While you can complete the programming assignments on your own computers, the practical exams are done in a controlled environment using servers similar to the PE hosts.  It is therefore advisable for you to familiarize yourself with accessing the PE servers via `ssh` and edit your program with either `vim`, `micro` or `emacs` (`vim` is recommended and supported).
+While you can complete the programming assignments on your own computers, the practical exams are done in a controlled environment using servers similar to the PE hosts.  It is therefore advisable for you to familiarize yourself with accessing the PE servers via `ssh` and edit your program with either Vim, micro or emacs (Vim is recommended and supported).
 
 ### Account
 
@@ -51,13 +51,13 @@ After the command above, follow the instructions on the screen.  The first time 
 
 ### Accessing The PE Hosts from Outside SoC
 
-The PE hosts can only be accessed from within the School of Computing networks.  If you want to access it from outside the network, you need to connect through SoC VPN (:material-alpha-d-circle: in Figure 1).  {++Note that even if you are physically within SoC, but you are connected to the Internet through mobile network tethering, the NUS_GUEST WiFi network, or any other external networks, you still need to connect through SoC VPN.  To connect to the School of Computing network within the premise of School of Computing, you need to connect to NUS_STU.++}
+The PE hosts can only be accessed from within the School of Computing networks.  If you want to access it from outside the network, you need to connect through NUS VPN (:material-alpha-d-circle: in Figure 1).  Note that even if you are physically within SoC, but you are connected to the Internet through mobile network tethering, the NUS_GUEST WiFi network, or any other external networks, you still need to connect through NUS VPN.  To connect to the School of Computing network within the premise of School of Computing, you need to connect to NUS_STU.
 
-First, you need to set up a Virtual Private Network (VPN) (See [instructions here](https://dochub.comp.nus.edu.sg/cf/guides/network/vpn/start)).  The staff at the IT helpdesk in COM1, Level 1, will be able to help you with setting up if needed.  You can also contact them via the NUS IT RT system at [https://rt.comp.nus.edu.sg](https://rt.comp.nus.edu.sg).
+First, you need to set up a Virtual Private Network (VPN) (See [instructions here](https://nusit.nus.edu.sg/eguides/)).  We can no longer connect via SoC VPN.
 
 !!! note "SoC VPN vs NUS VPN"
 
-    Note that SoC VPN is different from NUS VPN.  Connecting to NUS VPN only allows you access to the NUS internal network, but not the SoC internal network.
+    Note that SoC VPN is different from NUS VPN.  SoC VPN is no longer supported.
 
 !!! note "FortiClient VPN vs FortiClient"
 
@@ -65,7 +65,7 @@ First, you need to set up a Virtual Private Network (VPN) (See [instructions her
 
 ### Accessing The PE Hosts from SoC Lab PCs
 
-CS2030S practical exams will be conducted in the programming labs in COM1, COM4, and AS6 using the Ubuntu environment on the lab PCs.  Students are advised to use the lab PCs during regular lab sessions to familiarize themselves with the environment (:material-alpha-b-circle: in Figure 1).  
+CS2030S practical exams will be conducted in the programming labs in COM1, COM4, AS6, and possibly MPH using the Ubuntu environment on the lab PCs.  Students are advised to use the lab PCs during regular lab sessions to familiarize themselves with the environment (:material-alpha-b-circle: in Figure 1).  
 
 To access the PE hosts from the lab PCs during lab sessions:
 
@@ -100,7 +100,7 @@ Some common error messages you may receive when you `ssh` and what they mean:
 
     Check that you have entered your username correctly.  It is _case-sensitive_.
 
-    If you have lost your password, go here (to reset your password)[https://mysoc.nus.edu.sg/~myacct/resetpass.cgi).
+    If you have lost your password, go here [to reset your password](https://mysoc.nus.edu.sg/~myacct/resetpass.cgi).
 
 4. > `Could not chdir to home directory /home/o/ooiwt: Permission denied`
 
@@ -110,7 +110,7 @@ Some common error messages you may receive when you `ssh` and what they mean:
 
 ## Setting up SSH Keys
 
-The next step is not required but is a time-saver and a huge quality-of-life improvement.  _You need to be familiar with basic Unix commands_, including how to copy files to remote hosts (using `scp`), how to check/change file permissions (using `ls -l` and `chmod`), and how to open, edit, and save a file using `vim`.  If you are still not comfortable with these commands, make sure you play with the [basic Unix commands](unix/essentials.md) and [`vim`](vim/philosophy.md).  You can come back and complete this step later. 
+The next step is not required but is a time-saver and a huge quality-of-life improvement.  _You need to be familiar with basic Unix commands_, including how to check/change file permissions (using `ls -l` and `chmod`), and how to open, edit, and save a file using Vim.  If you are still not comfortable with these commands, make sure you play with the [basic Unix commands](unix/essentials.md) and [Vim](vim/philosophy.md).  You can come back and complete this step later. 
 
 Our goal here is to set up a pair of public/private keys for authentication so that you do not need to type your password every time you log into a PE host.
 
@@ -132,7 +132,7 @@ The following are the steps to copy `id_rsa.pub` to the PE hosts.
 vim ~/.ssh/authorized_keys
 ```
 
-- Once in vim, enter INSERT mode, and copy-and-paste the content of `id_rsa.pub` from the local machine into `authorized_keys` using your terminal copy-and-paste feature (the actual keys to copy and to paste depends on your OS and Terminal).  Make sure that the content is pasted as a single line without any extra spaces.  Save `authorized_keys` and exit vim.
+- Once in Vim, enter `INSERT` mode, and copy-and-paste the content of `id_rsa.pub` from the local machine into `authorized_keys` using your terminal copy-and-paste feature (the actual keys to copy and to paste depends on your OS and Terminal).  Make sure that the content is pasted as a single line without any extra spaces.  Save `authorized_keys` and exit Vim.
 
 
 - Make sure that the permission for `.ssh` both on the local machine and on PE is set to `700` and the files `~/.ssh/id_rsa` on the local machine and `~/.ssh/authorized_keys` on the remote machine are set to `600`.  See the guide on using [`ls`](unix/essentials.md#ls-list-content-of-a-directory) and [`chmod`](unix/essentials.md#file-permission-management) if you are unsure how to do this.
@@ -143,7 +143,7 @@ Once set up, you need not enter your password every time you run `ssh pelogin` f
     
 Note that a stable network connection is required to use the PE hosts for a long period without interruption.   If you encounter frequent disconnections while working at home or on campus while connected wirelessly, please make sure that your Wi-Fi signal is strong and that there is no interference from other sources. 
 
-If your connection is disconnected in the middle of editing, `vim` saves the state of the buffer for you.  See the section on [swap files](vim/operations.md#swap-files) on how to recover your files.
+If your connection is disconnected in the middle of editing, Vim saves the state of the buffer for you.  See the section on [swap files](vim/operations.md#swap-files) on how to recover your files.
 
 
 

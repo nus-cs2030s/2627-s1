@@ -5,12 +5,12 @@ held in August 2020.
 
 !!! abstract "Learning Objectives"
 
-    Students should
+    Students should:
 
-    - appreciate the philosophy of Unix where small utility programs can be composed together to perform a complex task using the pipe `|` operator.
-    - be aware of basic Unix utilities: `echo`, `sort`, `uniq`, `grep`, `head`, and `tail`.
-    - be able to use basic pattern matching `*` `?` `[]` and `{}` in `bash`.
-    - know how to use ++tab++, ++ctrl+p++, and ++ctrl+n++ to work more efficiently in `bash`.
+    - appreciate the philosophy of Unix where small utility programs can be composed together to perform a complex task using the pipe `|` operator;
+    - be aware of basic Unix utilities: `echo`, `sort`, `uniq`, `grep`, `head`, and `tail`;
+    - be able to use basic pattern matching `*` `?` `[]` and `{}` in `bash`;
+    - know how to use ++tab++, ++ctrl+p++, and ++ctrl+n++ to work more efficiently in `bash`;
     - know how to save time and effort by automating long complex commands using `bash` scripts.
 
 ## Composing Programs with `|`
