@@ -55,7 +55,7 @@ An object in the heap contains the following information:
 --8<-- "docs/figures/SH/002.svg"
 </p>
 
-The colour does not matter and we use 
+The colour does not matter and we use blue to be visually distinct from the background with the class name in a darker shade to differentiate it from the field.  An alternative is to draw one box for the class name and another box for the fields.
 
 ## Examples
 
@@ -67,7 +67,7 @@ Point p;
 p = new Point(1, 2);
 ```
 
-Line 1 declares a variable `p`.  When the JVM executes this line of code, it allocates some memory space for an object reference for `p`, the content is currently _uninitialized_  (Note: "uninitialized" does not mean it has the value `null`.  An uninitialized variable has no value, not even `null`)  We show uninitialized variables with the content having the symbol ∅.  Since `p` is a variable, it resides in the stack.
+Line 1 declares a variable `p`.  When the JVM executes this line of code, it allocates some memory space for an object reference for `p`, the content is currently _uninitialized_  (Note: "uninitialized" does not mean it has the value `null`.  An uninitialized variable has no value, not even `null`).  We show uninitialized variables with the content having the symbol ∅.  Since `p` is a variable, it resides in the stack.
 
 Line 2 creates a new `Point` object.  When the JVM executes this line of code, it (i) allocates some memory space for a `Point` object on the heap, (ii) invokes the constructor, and (iii) returns the reference to the newly allocated memory space back.  The returned memory address of this memory space becomes the reference of the object and is assigned to the variable `p`.
 
@@ -107,7 +107,7 @@ Although we mentioned that `this` is a keyword, it behaves mostly like a variabl
 
 Note that we use the symbol ∅ to indicate that the variable is not yet initialized.  Java differentiates between uninitialized variables and variables initialized to `null`.  Uninitialized variables cannot be used.  Further, note that uninitialized fields have default values but not uninitialized variables.
 
-Also, we will often simplify the presentation.  First, we will omit the memory address (e.g., 9048ab50).  The arrow from the variable `p` containing the value 9048ab50 to an object located at 9048ab50 is already an abstraction of this.  Furthermore, we do not know where the actual address will be and it will be different on different runs.  So, we can omit both memory addresses stored in the variable and of the object.
+We will often simplify the presentation.  First, we will omit the memory address (e.g., 9048ab50).  The arrow from the variable `p` containing the value 9048ab50 to an object located at 9048ab50 is already an abstraction of this.  Furthermore, we do not know where the actual address will be and it will be different on different runs.  So, we can omit both memory addresses stored in the variable and of the object.
 
 Secondly, we are often interested only in the snapshot of the stack and heap diagram at a particular moment.  As such, the intermediate stack frames (e.g., `Point` constructor) that are inserted and then removed can be omitted.  Only the final effect matters.
 
