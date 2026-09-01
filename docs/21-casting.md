@@ -83,22 +83,24 @@ Consider the following two snippets, which will compile perfectly, but will lead
 
 ```Java title="No Runtime Error"
 GetAreable[] circles = new GetAreable[] {
-  new Circle(new Point(1, 1), 2),
+  new Circle(new Point(1, 1), 4),
   new Square(new Point(1, 1), 5)
 };
 
 Circle c2 = (Circle) findLargest(circles);
 ```
 
-Or
+This is because the largest value returned is indeed a Circle.  On the other hand, consider the following
 
 ```Java title="With Runtime Error"
 GetAreable[] circles = new GetAreable[] {
   new Circle(new Point(1, 1), 2),
-  new Circle(new Point(1, 1), 5)
+  new Square(new Point(1, 1), 3)
 };
 
 Square sq = (Square) findLargest(circles);
 ```
+
+where the largest value returned is also a Circle.  In this case, we will have a runtime error.
 
 We will see how to resolve this problem in later units, where we will show how Java's type system (in particular, generics) allows us to express stronger guarantees so that many of these casts and the associated runtime risks can be avoided entirely.

@@ -1,7 +1,7 @@
 # The CS2030S Programming Environment
 
 ![architecture](figures/pe-nodes-architecture/pe-nodes-architecture.001.png)
-<div align="center" markdown>Figure 1: The CS2030S Programming Environment.  TL;DR: All work should be done on the PE nodes.  You can access the nodes via `ssh` through lab PCs or your personal devices.  If you need to access them outside SoC, you need to go through SoC VPN.</div>
+<div align="center" markdown>Figure 1: The CS2030S Programming Environment.  TL;DR: All work should be done on the PE nodes.  You can access the nodes via `ssh` through lab PCs or your personal devices.  If you need to access them outside NUS, you need to go through NUS VPN.</div>
 
 ## Java version
 
@@ -59,9 +59,10 @@ First, you need to set up a Virtual Private Network (VPN) (See [instructions her
 
     Note that SoC VPN is different from NUS VPN.  SoC VPN is no longer supported.
 
-!!! note "FortiClient VPN vs FortiClient"
-
-    When you setup the SoC VPN client, please make sure that you download and install "FortiClient VPN Only", and not "FortiClient".  The latter is a commercial product that would stop working after the free trial is over.   On the other hand, "FortiClient VPN" is a free product.
+Once you are connected to NUS VPN, the command is modified to include the jump server.
+```
+ssh -J <username>@stujump.comp.nus.edu.sg <username>@pelogin.comp.nus.edu.sg
+```
 
 ### Accessing The PE Hosts from SoC Lab PCs
 
