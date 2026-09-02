@@ -229,7 +229,9 @@ For checked exceptions, this contract is enforced by the compiler: any caller mu
 
 Unchecked exceptions, on the other hand, usually signal violated preconditions and are therefore not part of the method's explicit contract, even though they may still occur at runtime.  As such, we do not need to declare them in the `throws` clause.
 
-In Java, checked exceptions are subclasses of the class `Exception` that are not a subclass of `RuntimeException`.
+In Java, checked exceptions are subclasses of the class `Exception` that are not a subclass of `RuntimeException`.  {++Oracle[^1] defines checked exceptions as subtype of `Throwable` that is not a subtype of `RuntimeException` or `Error`. For our purpose, we use only subtype of `Exception` and we do not consider `Throwable`.++}
+
+[^1]: https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Throwable.html
 
 ## Passing the Buck
 
